@@ -14,6 +14,7 @@ async function installServerlessAndPlugins() {
     'npm i serverless -g',
     'npm i serverless-python-requirements',
     'npm i serverless-plugin-canary-deployments'
+    'npm i serverless-prune-plugin'
   )
 }
 
@@ -22,9 +23,9 @@ async function runServerlessDeploy() {
   await exeq(
     `echo Running sls deploy ${ARGS}...`,
     `if [ ${process.env.AWS_ACCESS_KEY_ID} ] && [ ${process.env.AWS_SECRET_ACCESS_KEY} ]; then
-      sls config credentials --provider aws --key ${process.env.AWS_ACCESS_KEY_ID} --secret ${process.env.AWS_SECRET_ACCESS_KEY} ${ARGS}
+      serverless config credentials --provider aws --key ${process.env.AWS_ACCESS_KEY_ID} --secret ${process.env.AWS_SECRET_ACCESS_KEY} ${ARGS}
     fi`,
-    `sls deploy ${ARGS}`
+    `serverless deploy ${ARGS}`
   )
 }
 
